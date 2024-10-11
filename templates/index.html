@@ -32,16 +32,51 @@
         background-color: #111;
         border-radius: 15px;
         border: 2px solid #bbb;
-        animation: fadeIn 1.5s ease-in-out;
+        animation: neonContainerBlink 3s infinite ease-in-out;
         max-width: 80%;
-        margin: 0 auto;
+        /* margin: 0 auto; */
+        margin-top: 3vh;
+      }
+
+      /* Neon blinking effect for the container */
+      @keyframes neonContainerBlink {
+        0% {
+          border-color: #7f8cff;
+          box-shadow: 0 0 10px rgba(127, 140, 255, 0.5);
+        }
+        50% {
+          border-color: #88ffec;
+          box-shadow: 0 0 20px rgba(136, 255, 236, 0.5);
+        }
+        100% {
+          border-color: #ffd1dc;
+          box-shadow: 0 0 15px rgba(255, 209, 220, 0.5);
+        }
       }
 
       h1 {
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 30px;
+        background: linear-gradient(90deg, #ff00cc, #00ffff, #ff7700, #aaff00);
+        background-size: 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: neon-blink 3s infinite ease-in-out;
         color: #ddd;
+        letter-spacing: 2px;
+      }
+
+      @keyframes neon-blink {
+        0% {
+          background-position: 0%;
+        }
+        50% {
+          background-position: 100%;
+        }
+        100% {
+          background-position: 0%;
+        }
       }
 
       .image-row {
@@ -54,34 +89,34 @@
       .image-container {
         position: relative;
         margin: 10px;
-        max-width: 200px;
-        max-height: 200px;
+        width: 300px; /* Increased width */
+        height: 300px; /* Increased height */
         border-radius: 10px;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      /* Subtle glow effect for the first image in each row */
       .first-image {
-    border: 2px solid #c8c8ff; /* Light lavender border */
-    box-shadow: 0 0 15px rgba(200, 200, 255, 0.6); /* Soft glow */
-    animation: softPulse 2.5s infinite alternate ease-in-out;
-    transition: transform 0.3s ease;
-    margin-right: 50px; /* Increased space between first and second image */
-}
+        border: 2px solid #c8c8ff;
+        box-shadow: 0 0 15px rgba(200, 200, 255, 0.6);
+        animation: softPulse 2.5s infinite alternate ease-in-out;
+        transition: transform 0.3s ease;
+        margin-right: 90px;
+      }
 
-      /* Neon effect for the second and third images */
       .neon-image {
-        border: 2px solid #0ff; /* Neon cyan border */
+        border: 2px solid #0ff;
         box-shadow: 0 0 20px rgba(0, 255, 255, 0.6),
-          0 0 30px rgba(255, 0, 255, 0.7), 0 0 40px rgba(255, 119, 0, 0.8); /* Neon glow */
+          0 0 30px rgba(255, 0, 255, 0.7), 0 0 40px rgba(255, 119, 0, 0.8);
         animation: neonGlow 2s infinite alternate ease-in-out;
       }
 
-      /* General styling for images */
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 10px;
       }
 
@@ -98,22 +133,10 @@
         cursor: pointer;
       }
 
-      /* Hover effect for the first image */
       .first-image:hover {
         transform: scale(1.05);
       }
 
-      /* Fade-in animation */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      /* Subtle pulse animation for the first image */
       @keyframes softPulse {
         0% {
           box-shadow: 0 0 15px rgba(200, 200, 255, 0.4);
@@ -123,7 +146,6 @@
         }
       }
 
-      /* Neon pulse animation for second and third images */
       @keyframes neonGlow {
         0% {
           border-color: #00f7ff;
@@ -194,7 +216,6 @@
     </div>
 
     <script>
-      // Toggle the delete button visibility
       function toggleDeleteButton(imgElement) {
         const container = imgElement.parentElement;
         const deleteBtn = container.querySelector(".delete-btn");
@@ -204,7 +225,6 @@
             : "none";
       }
 
-      // Send a request to delete the image
       function deleteImage(imageName) {
         if (confirm("Are you sure you want to delete this image?")) {
           fetch(`/delete_image/${imageName}`, {
