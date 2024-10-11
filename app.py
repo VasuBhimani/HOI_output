@@ -44,4 +44,9 @@ def delete_image(image_name):
         return jsonify({"message": "Failed to delete image", "error": str(e)}), 500
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(debug=True, port=8123)
+=======
+    app.run(debug=True, host='0.0.0.0', port=8123)
+
+>>>>>>> c936b40abac624bd5d442c11ce835c68c6a5b918
